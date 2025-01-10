@@ -11,7 +11,7 @@ export const Contact = () => {
     }
 
     const handleUpdate = (contact) => {
-        actions.updateContact(contact);
+        actions.setCurrentContact(contact);
         navigate("/edit-contact")
     };
 
@@ -24,8 +24,8 @@ export const Contact = () => {
             <div className="d-flex justify-content-center">
                 <div className="card mb-3" style={{ maxWidth: '80%' }}>
                     {store.contacts && store.contacts.length > 0 ? (
-                        store.contacts.map((contact) => (
-                            <div className="row g-0" key={contact.id}>
+                        store.contacts.map((contacts) => (
+                            <div className="row g-0" key={contacts.id}>
                                 <div className="col-md-4">
                                     <img
                                         src="https://w7.pngwing.com/pngs/371/155/png-transparent-r2-d2-anakin-skywalker-star-wars-x-wing-starfighter-logo-brown-frame-text-logo-anakin-skywalker.png"
@@ -35,19 +35,19 @@ export const Contact = () => {
                                 </div>
                                 <div className="col-md-8">
                                     <div className="card-body">
-                                        <h5 className="card-title">{contact.name}</h5>
+                                        <h5 className="card-title">{contacts.name}</h5>
                                         <p className="card-text">
-                                            <i className="fa-solid fa-location-dot mb-4">{contact.address}</i>
+                                            <i className="fa-solid fa-location-dot mb-4">{contacts.address}</i>
                                             <br />
-                                            <i className="fa-solid fa-phone mb-4">{contact.phone}</i>
+                                            <i className="fa-solid fa-phone mb-4">{contacts.phone}</i>
                                             <br />
-                                            <i className="fa-solid fa-envelope">{contact.email}</i>
+                                            <i className="fa-solid fa-envelope">{contacts.email}</i>
                                         </p>
                                         <div className="text-sm-end">
-                                            <button type="button" className="btn btn-secondary" onClick={() => handleUpdate(contact)}>
+                                            <button type="button" className="btn btn-secondary" onClick={() => handleUpdate(contacts)}>
                                                 <i className="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button type="button" className="btn btn-danger ms-3" onClick={() => handleDelete(contact.id)}>
+                                            <button type="button" className="btn btn-danger ms-3" onClick={() => handleDelete(contacts.id)}>
                                                 <i className="fa-solid fa-trash-can"></i>
                                             </button>
                                         </div>

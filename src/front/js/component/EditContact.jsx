@@ -1,21 +1,22 @@
 import React, { useActionState, useContext, useState } from "react";
-import {  Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const EditContact = () => {
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [phone, setPhone] = useState();
-    const [address, setAddress] = useState();
-
     const { store, actions } = useContext(Context)
-    const Navigate = useNavigate();
+    const contact = store.currentContact;
+    const [name, setName] = useState(contact.name);
+    const [email, setEmail] = useState(contact.email);
+    const [phone, setPhone] = useState(contact.phone);
+    const [address, setAddress] = useState(contact.address);
+
+    const navigate = useNavigate();
 
     const handleSubmitEdit = (event) => {
-        event.prevent.default();
+        event.preventDefault();
         const dataToSend = { name, email, phone, address };
-        actions.addContact(dataToSend)
-        Navigate("/contacts")
+        actions.updateContact(contact.id, dataToSend)
+        navigate("/contact")
     }
 
     return (
@@ -39,7 +40,7 @@ export const EditContact = () => {
                     <input type="text" className="mb-3 ms-5 w-50 form-control" placeholder="Enter address" value={address} onChange={(event) => setAddress (event.target.value)}/>
                 </div>
                 <button type="submit" className="ms-5 btn btn-warning">Save</button>
-                <button type="reset" className="ms-3 btn btn-secondary" onClick={() => Navigate("/contact")}>Cancel</button>
+                <button type="reset" className="ms-3 btn btn-secondary" onClick={() => navigate("/contact")}>Cancel</button>
             </form>
         </div>
     )
