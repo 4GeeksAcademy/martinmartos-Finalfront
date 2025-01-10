@@ -22,10 +22,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			addContact: (contact) => {
-                const store = getStore();
-                setStore({ contacts: [...store.contacts, contact] });
-            },
 			createAgenda: async () => {
 				const uri = `${getStore().host}/${getStore().user}`;
 				const options = {
