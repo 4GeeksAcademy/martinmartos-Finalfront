@@ -16,12 +16,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			host: "https://playground.4geeks.com/contact/agendas",
 			user: "martinmartos",
-			contact: [],
+			contacts: [],
+			currentContact: {},
 		},
 		actions: {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+			setCurrentContact: (item) => {setStore({currentContact: item})},
 			createAgenda: async () => {
 				const uri = `${getStore().host}/${getStore().user}`;
 				const options = {
@@ -43,8 +45,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 				const response = await fetch(uri, options);
 				if (!response.ok) {
-					if (response.status == 404){
-                        getActions().createAgenda()
+					if (response.status == 404) {
+						getActions().createAgenda()
 					} else {
 						console.error("Error: ", response.status, response.statusText);
 					}
@@ -58,7 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const options = {
 					method: "POST",
 					headers: {
-						"Content-Type": "application/json"
+						"Content-Type": "application/json",
 					},
 					body: JSON.stringify(dataToSend)
 				};
@@ -70,9 +72,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().getContact()
 			},
 			updateContact: async (id, contact) => {
-				const uri = `${getStore().host}/${getStore().user}/contacts/${id}`;
+				const uri = `${getStore().host}/${getStore().user}/contacts/${id}`
 				const options = {
-					method: "PUT",		
+					method: "PUT",
 					headers: {
 						"Content-Type": "application/json"
 					},
@@ -86,7 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().getContact();
 			},
 			deleteContact: async (id) => {
-				const uri = `${getStore().host}/${getStore().user}/contacts/${id}`;
+				const uri = `${getStore().host}/${getStore().user}/contacts/${id}`
 				const options = {
 					method: "DELETE"
 				};
@@ -106,6 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// don't forget to return something, that is how the async resolves
 					return data;
 				} catch (error) {
+					console.log("Error loading message from backend", error)
 				}
 			},
 			changeColor: (index, color) => {
