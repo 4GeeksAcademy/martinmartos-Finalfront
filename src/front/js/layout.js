@@ -3,9 +3,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+
+import { Contact } from "./component/Contact.jsx";
+import { AddContact } from "./component/AddContact.jsx";
+import { EditContact } from "./component/EditContact.jsx";
+
+import { Home } from "./pages/home.js";
+import { Demo } from "./pages/demo.js";
+import { Single } from "./pages/single.js";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -26,6 +31,9 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
+                        <Route element={<Contact/>} path="/contact" />
+                        <Route element={<AddContact/>} path= "/add-contact" />
+                        <Route element={<EditContact/>} path= "/edit-contact" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
