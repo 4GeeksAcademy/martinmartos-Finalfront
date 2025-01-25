@@ -4,12 +4,19 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 
-import { Contact } from "./component/Contact.jsx";
 import { AddContact } from "./component/AddContact.jsx";
+import { DetallesCharacters } from "./component/DetallesCharacters.jsx";
+import { DetallesNaves } from "./component/DetallesNaves.jsx";
+import { DetallesPlanetas } from "./component/DetallesPlanetas.jsx";
 import { EditContact } from "./component/EditContact.jsx";
 
-import { Home } from "./pages/home.js";
+
+import { Contact } from "./pages/Contact.jsx";
+import { Characters } from "./pages/Characters.jsx";
 import { Demo } from "./pages/demo.js";
+import { Home } from "./pages/home.js";
+import { Naves } from "./pages/Naves.jsx";
+import { Planetas } from "./pages/Planetas.jsx";
 import { Single } from "./pages/single.js";
 import injectContext from "./store/appContext";
 
@@ -30,6 +37,12 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
+                        <Route element={<Characters />} path="/characters" />
+                        <Route element={<DetallesCharacters />} path="/characters-detalles/:uid" />
+                        <Route element={<Naves />} path="/naves" />
+                        <Route element={<DetallesNaves />} path="/naves-detalles/:uid" />
+                        <Route element={<Planetas/>} path="/planetas" />
+                        <Route element={<DetallesPlanetas />} path="/planetas-detalles/:uid" />
                         <Route element={<Home />} path="/" />
                         <Route element={<Contact/>} path="/contact" />
                         <Route element={<AddContact/>} path= "/add-contact" />
