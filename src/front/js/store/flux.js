@@ -26,6 +26,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			hostStarWars: "https://www.swapi.tech/api",
 			host: "https://playground.4geeks.com/contact/agendas",
 			user: "martinmartos",
+			favorites: [],
 			contacts: [],
 			currentContact: {},
 		},
@@ -97,6 +98,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				const data = await response.json();
 				setStore({ detallePlanetas: data.result.properties });
+			},
+			addFavorites: (item) =>{
+				const favorites = getStore().favorites;
+				if(!favorites.includes(item)){
+				setStore({favorites: [...getStore().favorites,item]});
+				}
+			},
+			removeFavorites: (item) =>{
+				const favorites = getStore().favorites;
+				setStore({favorites:favorites.filter((favorite) => favorite != item)})
 			},		
 			createAgenda: async () => {
 				const uri = `${getStore().host}/${getStore().user}`;

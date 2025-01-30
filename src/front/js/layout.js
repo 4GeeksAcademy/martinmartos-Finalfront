@@ -32,28 +32,30 @@ const Layout = () => {
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
 
     return (
-        <div>
-            <BrowserRouter basename={basename}>
-                <ScrollToTop>
-                    <Navbar />
-                    <Routes>
-                        <Route element={<Characters />} path="/characters" />
-                        <Route element={<DetallesCharacters />} path="/characters-detalles/:uid" />
-                        <Route element={<Naves />} path="/naves" />
-                        <Route element={<DetallesNaves />} path="/naves-detalles/:uid" />
-                        <Route element={<Planetas/>} path="/planetas" />
-                        <Route element={<DetallesPlanetas />} path="/planetas-detalles/:uid" />
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Contact/>} path="/contact" />
-                        <Route element={<AddContact/>} path= "/add-contact" />
-                        <Route element={<EditContact/>} path= "/edit-contact" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
-                    <Footer />
-                </ScrollToTop>
-            </BrowserRouter>
+        <div className="bg-dark">
+            <div>
+                <BrowserRouter basename={basename}>
+                    <ScrollToTop>
+                        <Navbar />
+                        <Routes>
+                            <Route element={<Characters />} path="/characters" />
+                            <Route element={<DetallesCharacters />} path="/characters-detalles/:uid" />
+                            <Route element={<Naves />} path="/naves" />
+                            <Route element={<DetallesNaves />} path="/naves-detalles/:uid" />
+                            <Route element={<Planetas />} path="/planetas" />
+                            <Route element={<DetallesPlanetas />} path="/planetas-detalles/:uid" />
+                            <Route element={<Home />} path="/" />
+                            <Route element={<Contact />} path="/contact" />
+                            <Route element={<AddContact />} path="/add-contact" />
+                            <Route element={<EditContact />} path="/edit-contact" />
+                            <Route element={<Demo />} path="/demo" />
+                            <Route element={<Single />} path="/single/:theid" />
+                            <Route element={<h1>Not found!</h1>} />
+                        </Routes>
+                        <Footer />
+                    </ScrollToTop>
+                </BrowserRouter>
+            </div>
         </div>
     );
 };

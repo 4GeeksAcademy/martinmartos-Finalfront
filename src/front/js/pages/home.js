@@ -7,20 +7,8 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
+		<div className="text-center bg-dark text-light mt-5">
+			<img src="https://oem.com.mx/elsoldehermosillo/img/19046634/1683202884/BASE_LANDSCAPE/768/Disen%CC%83o%20sin%20ti%CC%81tulo%20(12).webp"/>
 		</div>
 	);
 };

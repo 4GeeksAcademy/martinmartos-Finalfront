@@ -11,15 +11,17 @@ export const DetallesCharacters = () => {
         actions.getDetalleCharacters(uid);
     }, [uid])
     return (
-        <div className="card mb-3" style={{ width: "540px" }}>
-            <div className="row g-0">
-                <div className="col-md-4">
-                    <img src={`https://starwars-visualguide.com/assets/img/characters/${uid}.jpg`} className="img-fluid rounded-start" alt="" />
+        <div className="card bg-dark text-light ms-5 mt-2">
+            <div className="row">
+                <div className="col-md-7 col-lg-6 col-xl-5 ms-5">
+                    <h1 className="card-title">{personajes.name}</h1>
                 </div>
             </div>
-            <div className="col-md-8">
-                <div className="card-body">
-                    <h5 className="card-title">{personajes.name}</h5>
+            <div className="d-flex  ms-5 mt-2">
+                <div className="col-md-5 col-lg-6 col-xl-7 ms-3" style={{  width: "550px" }}  >
+                        <img src={`https://starwars-visualguide.com/assets/img/characters/${uid}.jpg`} className="img-fluid rounded-start" alt="" />
+                </div>
+                <div className="mt-3" >
                     <p className="card-text"><strong>Height: </strong>{personajes.height}</p>
                     <p className="card-text"><strong>Mass: </strong>{personajes.mass}</p>
                     <p className="card-text"><strong>Hair color: </strong>{personajes.hair_color}</p>
@@ -29,5 +31,5 @@ export const DetallesCharacters = () => {
                     <p className="card-text"><strong>Gender: </strong>{personajes.gender}</p>
                 </div>
             </div>
-         </div>   )
-    }
+        </div>)
+}
