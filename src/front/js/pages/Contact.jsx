@@ -4,7 +4,7 @@ import { Context } from "../store/appContext.js";
 
 export const Contact = () => {
     const navigate = useNavigate();
-    const { store, actions } = useContext(Context)
+    const { store, actions } = useContext(Context);
 
     const handleDelete = async (id) => {
         actions.deleteContact(id);

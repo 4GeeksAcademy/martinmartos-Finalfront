@@ -19,7 +19,7 @@ export const DetallesNaves = () => {
             </div>
             <div className="d-flex mt-2">
                 <div className="col-md-5 col-lg-6 col-xl-7 ms-3" style={{ width: "550px" }}>
-                        <img src={`https://starwars-visualguide.com/assets/img/starships/${uid}.jpg`} className="img-fluid rounded-start" alt="" />
+                        <img src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/starships/${uid}.jpg`} className="img-fluid rounded-start" alt="" />
                 </div>
                 <div className="ms-5" >
                     <p className="card-text"><strong>Model: </strong>{naves.model}</p>

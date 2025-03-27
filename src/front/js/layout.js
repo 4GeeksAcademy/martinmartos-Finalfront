@@ -2,24 +2,21 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
-
 import { AddContact } from "./component/AddContact.jsx";
 import { DetallesCharacters } from "./component/DetallesCharacters.jsx";
 import { DetallesNaves } from "./component/DetallesNaves.jsx";
 import { DetallesPlanetas } from "./component/DetallesPlanetas.jsx";
 import { EditContact } from "./component/EditContact.jsx";
-
-
 import { Contact } from "./pages/Contact.jsx";
 import { Characters } from "./pages/Characters.jsx";
 import { Demo } from "./pages/demo.js";
+import { Login } from "./pages/Login.jsx";
 import { Home } from "./pages/home.js";
 import { Naves } from "./pages/Naves.jsx";
 import { Planetas } from "./pages/Planetas.jsx";
+import { Signup } from "./pages/Signup.jsx";
 import { Single } from "./pages/single.js";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -38,13 +35,15 @@ const Layout = () => {
                     <ScrollToTop>
                         <Navbar />
                         <Routes>
+                            <Route element={<Home />} path="/" />
+                            <Route element={<Login />} path="/login" />
+                            <Route element={<Signup />} path="/signup" />
                             <Route element={<Characters />} path="/characters" />
                             <Route element={<DetallesCharacters />} path="/characters-detalles/:uid" />
                             <Route element={<Naves />} path="/naves" />
                             <Route element={<DetallesNaves />} path="/naves-detalles/:uid" />
                             <Route element={<Planetas />} path="/planetas" />
                             <Route element={<DetallesPlanetas />} path="/planetas-detalles/:uid" />
-                            <Route element={<Home />} path="/" />
                             <Route element={<Contact />} path="/contact" />
                             <Route element={<AddContact />} path="/add-contact" />
                             <Route element={<EditContact />} path="/edit-contact" />

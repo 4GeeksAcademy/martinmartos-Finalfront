@@ -6,11 +6,9 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.models import db, Users, Posts, Comments, Medias, Followers, CharacterFavorites, PlanetFavorites, Planets, Characters
 import requests
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
+from datetime import datetime, timezone
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from flask_jwt_extended import get_jwt
-
 
 api = Blueprint('api', __name__)
 CORS(api)  # Allow CORS requests to this API
@@ -23,12 +21,8 @@ def handle_hello():
     return jsonify(response_body), 200
 
 
-@api.route("/login", methods=["POST"])
+@api.route('/login', methods=['POST'])
 def login():
-    """
-    Create a route to authenticate your users and return JWTs. The
-    create_access_token() function is used to actually generate the JWT.
-    """
     response_body = {}
     data = request.json
     email = data.get("email", None)
@@ -40,7 +34,6 @@ def login():
     user = row.serialize()
     claims = {'user_id': user['id'],
               'is_active': user['is_active']}
-    print(claims)
     access_token = create_access_token(identity=email, additional_claims=claims)
     response_body['access_token'] = access_token
     response_body['message'] = 'User logged'
@@ -48,21 +41,33 @@ def login():
     return response_body, 200
 
 
+@api.route('/signup', methods=['POST'])
+def signup():
+    response_body = {}
+    if request.method == 'POST':
+        data = request.json
+        row = Users(
+                    first_name=data.get('first_name'),
+                    email=data.get('email'),
+                    password=data["password"],
+                    is_active=True)
+        db.session.add(row)
+        db.session.commit()
+        response_body['message'] = f'Nuevo usuario creado correctamente'
+        response_body['results'] = row.serialize()
+        return response_body, 200
+
+
 @api.route("/protected", methods=["GET"])
 @jwt_required()
 def protected():
-    """
-    Protect a route with jwt_required, which will kick out requests
-    without a valid JWT present.
-    """
     response_body = {}
-    current_user = get_jwt_identity()  # El email
-    additional_claims = get_jwt()  # Los datos adionales
+    current_user = get_jwt_identity()  
+    additional_claims = get_jwt() 
     print(current_user)
     print(additional_claims)
     response_body['message'] = 'Token válido'
     return response_body, 200
-
 
 @api.route('/users', methods=['GET'])
 def users():
