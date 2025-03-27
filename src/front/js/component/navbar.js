@@ -1,17 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useContext } from "react";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
+	const navigate = useNavigate()
+    
+	const handleLogin = () => {
+		navigate("/login"); 
+	  };
+
+
+	const handleLogout =  () => {
+		 actions.logout()
+		navigate('/login')
+	};
 
 	return (
 		<div className="container-fluid px-0">
 			<nav className="navbar bg-dark">
-				<a className="navbar-brand" href="#">
+				<Link className="navbar-brand" to="/">
 					<img src="https://img.icons8.com/?size=100&id=69493&format=png&color=000000" alt="Logo Starwars" width="110" height="80" className="ms-5" />
-				</a>
+				</Link>
 				<ul className="nav justify-content-end">
 					<li className="nav-item">
 						<Link className="nav-link text-secondary" to="/characters">
@@ -34,9 +45,7 @@ export const Navbar = () => {
 						</Link>
 					</li>
 					<div className="btn-group">
-						<button className="btn btn-primary dropdown-toggle me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Favorites
-						</button>
+						<button className="btn btn-outline-primary me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">Favorites</button>
 						<ul className="dropdown-menu dropdown-menu-end">
 							{store.favorites.length > 0 ? (
 								store.favorites.map((item, index) => (
@@ -52,8 +61,16 @@ export const Navbar = () => {
 							)}
 						</ul>
 					</div>
-				</ul>
-			</nav>
-		</div >
+					{store.isLogged ? (
+            <li className="nav-item">
+              <button type="button" className="btn btn-primary me-4" onClick={handleLogout}>Logout</button>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <button type="button" className="btn btn-primary me-4" onClick={handleLogin}>Login</button>
+            </li>)}
+        </ul>
+      </nav>
+    </div>
 	);
 };

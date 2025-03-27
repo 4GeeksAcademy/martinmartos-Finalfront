@@ -25,12 +25,73 @@ const getState = ({ getStore, getActions, setStore }) => {
 			uidPlanetas:'',
 			hostStarWars: "https://www.swapi.tech/api",
 			host: "https://playground.4geeks.com/contact/agendas",
-			user: "martinmartos",
 			favorites: [],
 			contacts: [],
 			currentContact: {},
+			isLogged: false, 
+			user: null,
 		},
 		actions: {
+			setIsLogged: (value) => { setStore({ isLogged: value }) },
+			setUser: (currentUser) => { setStore({ user: currentUser }) },
+			login: async (dataToSend) => {
+				const uri = `${process.env.BACKEND_URL}/api/login`
+				const options = {
+					method: 'POST',
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(dataToSend)
+				};
+				console.log(options);
+				const response = await fetch(uri, options);
+				if (!response.ok) {
+					console.log('Error:', response.status, response.statusText);
+					return
+				}
+				const data = await response.json()
+				localStorage.setItem('token', data.access_token)
+				localStorage.setItem('user', JSON.stringify(data.results))
+				setStore({
+					isLogged: true,
+					user: data.results
+				})
+			},
+			signup: async (dataToSend) => {
+				const uri = `${process.env.BACKEND_URL}/api/signup`
+				console.log(dataToSend)
+				const response = await fetch(uri, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(dataToSend)
+				})
+
+				if (!response.ok) {
+					console.error("Error en el registro:", response.statusText);
+					return null;
+				}
+
+				const body = {
+					email: dataToSend.email,
+					password: dataToSend.password,
+				}
+
+				const loginResponse = await getActions().login(body)
+				return loginResponse
+			},
+			logout: () => {
+				localStorage.clear()
+				setStore({ 
+					user: null,
+					isLogged: false, 
+				 })
+			},
+			getFromLocalStorage: (key) => {
+				const data = localStorage.getItem(key)
+				return JSON.parse(data)
+			},
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},

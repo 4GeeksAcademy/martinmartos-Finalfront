@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext.js";
 import { useNavigate } from "react-router-dom";
+import { useProtectedPage } from "../hooks/useProtectedPage.jsx";
+
 
 export const Characters = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const user = useProtectedPage();
 
     const handleImagen = (event) => {
         event.target.src = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
@@ -19,7 +22,7 @@ export const Characters = () => {
                         <div className="col-md-3 mb-4 ms-3 me-3">
                             <div className="card" style={{ width: "16rem", height: "450px" }}>
                                 <div className="card-head">
-                                    <img src={'https://starwars-visualguide.com/assets/img/characters/' + item.uid + '.jpg'} onError={handleImagen} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt="StarWar" />
+                                    <img src={'https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/' + item.uid + '.jpg'} onError={handleImagen} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt="StarWar" />
                                 </div>
                                 <div className="card-body">
                                     <h5 className="card-title">{item.name}</h5>
